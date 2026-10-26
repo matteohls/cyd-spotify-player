@@ -1,24 +1,31 @@
-name: Build ESP32-C5 firmware
+name: Build CYD Web Terminal (ESP-IDF, no PlatformIO)
 on:
-  workflow_dispatch:
   push:
     branches: [main, master]
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Build ESP32-C5 firmware
+        uses: espressif/esp-idf-ci-action@v1
         with:
-          python-version: '3.13'
-      - name: Install PlatformIO
-        run: pip install -U platformio
-      - name: Compile firmware
-        run: pio run -e nm-cyd-c5
-      - name: Upload firmware artifact
-        uses: actions/upload-artifact@v4
+          esp_idf_version: v5.4.2
+          target: esp32c5
+          path: .
+          command: idf.py build
+      - name: Package firmware
+        run: |
+          mkdir -p output
+          cp build/cyd_web_terminal.bin output/cyd-web-terminal.bin
+          cp build/bootloader/bootloader.bin output/bootloader.bin
+          cp build/partition_table/partition-table.bin output/partition-table.bin
+          cp partitions.csv output/partitions.csv
+          printf 'ESP-IDF v5.4.2; target ESP32-C5; 4MB flash; OTA partition layout\n' > output/BUILD-INFO.txt
+      - uses: actions/upload-artifact@v4
         with:
-          name: nm-cyd-c5-firmware
-          path: .pio/build/nm-cyd-c5/firmware.bin
+          name: cyd-web-terminal-firmware
+          path: output/*
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 30
