@@ -29,12 +29,12 @@ void drawScreen() {
   gfx->fillScreen(RGB565_BLACK);
   gfx->fillRect(0, 0, 320, 36, 0x18E3);
   gfx->setTextColor(RGB565_WHITE); gfx->setTextSize(2); gfx->setCursor(10, 10); gfx->print("SPOTIFY MINI");
-  gfx->drawRoundRect(8, 46, 112, 112, 0x4208); gfx->fillRect(12, 50, 104, 104, 0x2104);
+  gfx->drawRoundRect(8, 46, 112, 112, 8, 0x4208); gfx->fillRect(12, 50, 104, 104, 0x2104);
   gfx->setTextSize(1); gfx->setCursor(30, 94); gfx->print("ALBUM ART");
   gfx->setTextSize(2); gfx->setCursor(132, 54); gfx->print(trackName.substring(0, 16));
   gfx->setTextSize(1); gfx->setCursor(132, 82); gfx->print(artistName.substring(0, 27)); gfx->setCursor(132, 98); gfx->print(albumName.substring(0, 27));
   gfx->drawFastHLine(10, 172, 300, 0x4208);
-  gfx->drawRoundRect(10, 202, 70, 28, 0x07E0); gfx->drawRoundRect(91, 202, 70, 28, 0xFFFF); gfx->drawRoundRect(172, 202, 65, 28, 0xFFFF); gfx->drawRoundRect(248, 202, 62, 28, 0xF800);
+  gfx->drawRoundRect(10, 202, 70, 28, 6, 0x07E0); gfx->drawRoundRect(91, 202, 70, 28, 6, 0xFFFF); gfx->drawRoundRect(172, 202, 65, 28, 6, 0xFFFF); gfx->drawRoundRect(248, 202, 62, 28, 6, 0xF800);
   gfx->setTextSize(1); gfx->setCursor(30, 213); gfx->print("PREV"); gfx->setCursor(112, 213); gfx->print("PLAY"); gfx->setCursor(193, 213); gfx->print("NEXT"); gfx->setCursor(261, 213); gfx->print("SETUP");
   gfx->setCursor(10, 180); gfx->print(WiFi.status() == WL_CONNECTED ? WiFi.localIP().toString() : "Setup AP: 192.168.4.1");
 }
