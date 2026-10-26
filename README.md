@@ -1,20 +1,9 @@
-# NM-CYD-C5 Spotify mini-player
+# CYD Web Terminal — ESP-IDF, no PlatformIO
 
-This repo currently contains a **firmware starter and cloud build workflow**, not a finished Spotify client.
+Connect to Wi-Fi AP **CYD-TERMINAL** (password **terminal123**) and open **http://192.168.4.1**.
 
-## Build a firmware file
-1. Open the **Actions** tab.
-2. Select **Build ESP32-C5 firmware**.
-3. Click **Run workflow** (or wait for the push-triggered build).
-4. Open the completed run and download the `nm-cyd-c5-firmware` artifact.
-5. Extract `firmware.bin` and flash it with an ESP32-C5-compatible flashing tool.
+Commands: help, info, uptime, heap, wifi, partitions, version, echo TEXT, clear, reboot.
 
-## First boot
-The board creates a Wi-Fi access point named `CYD-Spotify-Setup`. Connect to it and open `http://192.168.4.1`.
+The web page uploads a compatible ESP32-C5 application .bin to the inactive OTA slot. It does not execute arbitrary Linux/desktop binaries. Build artifact is published by GitHub Actions as `cyd-web-terminal-firmware`.
 
-## Not implemented yet
-- Spotify account authorization / OAuth
-- Live track metadata and album-art download
-- Working Spotify play/pause/previous/next controls
-
-These features require an authenticated Spotify API integration or companion service. Pin assignments and touch calibration also need validation against the exact board revision.
+This version's interaction is browser-based. It does not implement an LCD text console. Confirm the exact board revision and flash size before flashing. OTA requires this firmware's compatible ESP32-C5 app image, not a full flash image.
