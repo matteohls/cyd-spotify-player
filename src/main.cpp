@@ -14,9 +14,9 @@
 #define LCD_BL 25
 #define TOUCH_CS 1
 
-// Rotation 0 keeps the declared 320x240 landscape geometry.
+// Landscape orientation for the 320x240 CYD C5 display.
 Arduino_DataBus *bus = new Arduino_ESP32SPI(LCD_DC, LCD_CS, LCD_SCK, LCD_MOSI, LCD_MISO);
-Arduino_GFX *gfx = new Arduino_ST7789(bus, LCD_RST, 0, true, 320, 240);
+Arduino_GFX *gfx = new Arduino_ST7789(bus, LCD_RST, 1, true, 320, 240);
 XPT2046_Touchscreen touch(TOUCH_CS);
 WebServer server(80);
 
@@ -122,7 +122,7 @@ void setup() {
   Serial.begin(115200);
   pinMode(LCD_BL, OUTPUT); digitalWrite(LCD_BL, HIGH);
   gfx->begin();
-  touch.begin(); touch.setRotation(0);
+  touch.begin(); touch.setRotation(1);
   WiFi.mode(WIFI_AP_STA);
   WiFi.softAP("CYD-Spotify-Setup");
   server.on("/", HTTP_GET, [](){ server.send(200, "text/html", setupPage()); });
